@@ -7,7 +7,8 @@ import {
 	switchMap,
 	distinct,
 	reduce,
-	filter
+	filter,
+	tap
 } from "rxjs/operators"
 
 const DataWrapper = props => {
@@ -19,7 +20,20 @@ const DataWrapper = props => {
 	// Run Once
 	useEffect(() => {
 		// Set csv data to rawData variable
-		csv(source).then(setRawData)
+		csv(source).then(data => {
+			let transformedData = data.map(row => ({
+				...row,
+				["Start Date"]: +row["Start Date"],
+				["End Date"]: +row["End Date"],
+				["Origin Latitude"]: +row["Origin Latitude"],
+				["Origin Longitude"]: +row["Origin Longitude"],
+				["Destination Latitude"]: +row["Destination Latitude"],
+				["Destination Longitude"]: +row["Destination Longitude"]
+			}))
+
+			transformedData["columns"] = data["columns"]
+			setRawData(transformedData)
+		})
 	}, [])
 
 	/** Fields */

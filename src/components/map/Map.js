@@ -96,10 +96,10 @@ const Map = props => {
 							Path: `${row["Origin City"]}|${row["Destination City"]}`,
 							"Origin City": row["Origin City"],
 							"Destination City": row["Destination City"],
-							"Origin Latitude": +row["Origin Latitude"],
-							"Origin Longitude": +row["Origin Longitude"],
-							"Destination Latitude": +row["Destination Latitude"],
-							"Destination Longitude": +row["Destination Longitude"]
+							"Origin Latitude": row["Origin Latitude"],
+							"Origin Longitude": row["Origin Longitude"],
+							"Destination Latitude": row["Destination Latitude"],
+							"Destination Longitude": row["Destination Longitude"]
 						}))
 					)
 					.map(d => ({

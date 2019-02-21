@@ -1,18 +1,14 @@
-import React, { useState, useEffect } from "react"
-import { csv } from "d3-fetch"
-import { nest } from "d3-collection"
-import { from } from "rxjs"
-import { map, toArray, distinct, tap } from "rxjs/operators"
-import Data from "./components/data/Data"
-import LettersTable from "./components/letters-table/LettersTable"
+import React from "react"
+import DataWrapper from "./components/data/Data"
 import Filter from "./components/filter/Filter"
+import Map from "./components/map/Map"
 import "./App.scss"
 
 const App = () => {
 	return (
 		<div className="App">
 			{/* Get data and fields */}
-			<Data source="./data/letters.csv">
+			<DataWrapper source="./data/letters.csv">
 				{/* render props function */}
 				{({ data, fields, select }) => {
 					// console.log(fields)
@@ -22,6 +18,7 @@ const App = () => {
 						<div>
 							<div className="section">
 								<div className="date-slider">Slider Graph</div>
+
 								{fields !== undefined ? (
 									<div className="filters">
 										<Filter
@@ -34,6 +31,10 @@ const App = () => {
 									</div>
 								) : null}
 							</div>
+
+							<div className="section">
+								<Map data={data} />
+							</div>
 							{/* <button onClick={() => select("Origin City", "Edinburgh")}>
 								select
 							</button> */}
@@ -42,7 +43,7 @@ const App = () => {
 						</div>
 					)
 				}}
-			</Data>
+			</DataWrapper>
 			{/* <div className="container table-container">
 				{letterCount !== undefined ? (
 					<table>

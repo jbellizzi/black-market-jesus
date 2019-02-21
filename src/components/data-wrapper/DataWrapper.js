@@ -10,7 +10,7 @@ import {
 	filter
 } from "rxjs/operators"
 
-const Data = props => {
+const DataWrapper = props => {
 	// Get source from props
 	const { source } = props
 
@@ -131,4 +131,4 @@ const Data = props => {
 	return <div>{props.children({ data, fields, select })}</div>
 }
 
-export default Data
+export default DataWrapper

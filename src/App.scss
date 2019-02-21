@@ -1,5 +1,7 @@
 .App {
 	.section {
+		margin-top: 20px;
+
 		.date-slider {
 			width: calc(100% - 370px);
 			display: inline-block;
@@ -7,7 +9,6 @@
 		}
 
 		.filters {
-			padding-top: 20px;
 			width: 200px;
 			display: inline-block;
 			vertical-align: top;

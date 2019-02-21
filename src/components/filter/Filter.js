@@ -7,7 +7,9 @@ import "./Filter.scss"
 const Filter = props => {
 	const { label, fieldName, field, select } = props
 
-	/** Dropdown State */
+	/**
+	 * Dropdown State
+	 */
 	const [showSelectionBox, setShowSelectionBox] = useState(false)
 	const [filterNode, setFilterNode] = useState(undefined)
 	useEffect(() => {
@@ -25,7 +27,9 @@ const Filter = props => {
 		}
 	}, [filterNode])
 
-	/** Search */
+	/**
+	 * Search
+	 */
 	const [visibleFieldValues, setVisibleFieldValues] = useState(field.values)
 	const [searchInput, setSearchInput] = useState("")
 	useEffect(() => {
@@ -39,11 +43,16 @@ const Filter = props => {
 		)
 	}, [searchInput, field.values])
 
-	/** Select Field Value */
+	/**
+	 * Select Field Value
+	 */
 	const selectFieldValue = value => {
 		select(fieldName, value)
 	}
 
+	/**
+	 * JSX
+	 */
 	return (
 		<div ref={setFilterNode} className="filter">
 			<span className="label">{label}</span>

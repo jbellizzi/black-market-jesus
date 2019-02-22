@@ -13,7 +13,7 @@ mapboxgl.accessToken =
 	"pk.eyJ1IjoiamJlbGxpenppIiwiYSI6ImNqb3Z6eHZreTFzZ3IzcHBia214M250cncifQ.562aUOGz7HteIUdtCdzDtA"
 
 const Map = props => {
-	const { data } = props
+	const { data, minDate, maxDate } = props
 
 	/**
 	 * Initialize
@@ -83,7 +83,7 @@ const Map = props => {
 	 */
 	const [letterPathData, setLetterPathData] = useState(undefined)
 	useEffect(() => {
-		if (data !== undefined) {
+		if (data !== undefined && minDate !== undefined && maxDate !== undefined) {
 			setLetterPathData(
 				nest()
 					.key(d => d.Path)
@@ -92,15 +92,20 @@ const Map = props => {
 						letters: leaves.length
 					}))
 					.entries(
-						data.map(row => ({
-							Path: `${row["Origin City"]}|${row["Destination City"]}`,
-							"Origin City": row["Origin City"],
-							"Destination City": row["Destination City"],
-							"Origin Latitude": row["Origin Latitude"],
-							"Origin Longitude": row["Origin Longitude"],
-							"Destination Latitude": row["Destination Latitude"],
-							"Destination Longitude": row["Destination Longitude"]
-						}))
+						data
+							.filter(
+								row =>
+									row["Start Date"] <= maxDate && row["End Date"] >= minDate
+							)
+							.map(row => ({
+								Path: `${row["Origin City"]}|${row["Destination City"]}`,
+								"Origin City": row["Origin City"],
+								"Destination City": row["Destination City"],
+								"Origin Latitude": row["Origin Latitude"],
+								"Origin Longitude": row["Origin Longitude"],
+								"Destination Latitude": row["Destination Latitude"],
+								"Destination Longitude": row["Destination Longitude"]
+							}))
 					)
 					.map(d => ({
 						key: d.key,
@@ -108,7 +113,7 @@ const Map = props => {
 					}))
 			)
 		}
-	}, [data])
+	}, [data, minDate, maxDate])
 
 	/**
 	 * Render Lines

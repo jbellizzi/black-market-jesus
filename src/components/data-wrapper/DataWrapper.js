@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { csv } from "d3-fetch"
+import { min, max } from "d3-array"
 import { from } from "rxjs"
 import {
 	map,
@@ -142,7 +143,19 @@ const DataWrapper = props => {
 		}
 	}, [rawData, fields])
 
-	return <div>{props.children({ data, fields, select })}</div>
+	/**
+	 * Dates
+	 */
+	const [minDate, setMinDate] = useState(undefined)
+	const [maxDate, setMaxDate] = useState(undefined)
+	useEffect(() => {
+		if (fields !== undefined) {
+			setMinDate(min(fields["Start Date"].values, d => d.value))
+			setMaxDate(max(fields["End Date"].values, d => d.value))
+		}
+	}, [fields])
+
+	return <div>{props.children({ data, minDate, maxDate, fields, select })}</div>
 }
 
 export default DataWrapper

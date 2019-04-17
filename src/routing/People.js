@@ -1,15 +1,8 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import Data from "../components/Data/Data"
-import {
-	Grid,
-	FormControl,
-	Select,
-	Input,
-	MenuItem,
-	withStyles,
-} from "@material-ui/core"
+import { Grid } from "@material-ui/core"
 import PeopleMap from "../components/people-map/PeopleMap"
-import Filter from "../components/filter/Filter"
+import Filter from "../components/Filter/Filter"
 
 const peopleHeaderMap = {
 	PERSON: "person",
@@ -17,6 +10,7 @@ const peopleHeaderMap = {
 	"LOCATION 1": "city",
 	Latitude: "lat",
 	Longitude: "lon",
+	NOTES: "notes",
 }
 
 const peopleDataMap = row => ({
@@ -25,70 +19,54 @@ const peopleDataMap = row => ({
 	lon: +row.lon,
 })
 
-const ITEM_HEIGHT = 48
-const ITEM_PADDING_TOP = 8
-const MenuProps = {
-	PaperProps: {
-		style: {
-			maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-			width: 250,
-		},
-	},
-}
-
-const styles = {
-	select: {
-		color: "#fff",
-	},
-}
-
 const People = props => {
-	const { classes } = props
 	return (
 		<Data
-			source="./data/people.csv"
+			source="./data/people_DavidBurnet.csv"
 			headerMap={peopleHeaderMap}
 			dataMap={peopleDataMap}
 		>
 			{({ data, fields, selectFieldValue }) => {
+				const [personPaths, setPersonPaths] = useState(null)
+				useEffect(() => {
+					if (data !== null) {
+						setPersonPaths(
+							data
+								.filter((row, i, array) => {
+									if (i === 0) return true
+									else return row.city !== array[i - 1].city
+								})
+								.map((row, i, array) => {
+									if (i === 0) return null
+									else
+										return {
+											originCity: array[i - 1].city,
+											originLat: array[i - 1].lat,
+											originLon: array[i - 1].lon,
+											destinationCity: row.city,
+											destinationLat: row.lat,
+											destinationLon: row.lon,
+										}
+								})
+								.filter(row => row !== null)
+						)
+					}
+				}, [data])
+
 				return (
 					<div>
 						<Grid container spacing={24}>
 							<Grid item xs={12}>
 								{fields !== null ? (
-									<FormControl>
-										<Select
-											className={classes.select}
-											multiple
-											displayEmpty
-											value={fields.person.selections}
-											onChange={event => {
-												selectFieldValue("person", event.target.value[0])
-											}}
-											input={<Input id="select-multiple-placeholder" />}
-											renderValue={selected => {
-												if (selected.length === 0) {
-													return <em>Person</em>
-												}
-
-												return selected.join(", ")
-											}}
-											MenuProps={MenuProps}
-										>
-											<MenuItem disabled value="">
-												<em>Select Person</em>
-											</MenuItem>
-											{fields.person.values.map(value => (
-												<MenuItem key={value.value} value={value.value}>
-													{value.value}
-												</MenuItem>
-											))}
-										</Select>
-									</FormControl>
+									<Filter
+										fields={fields}
+										fieldName="person"
+										select={selectFieldValue}
+									/>
 								) : null}
 							</Grid>
 							<Grid item xs={10}>
-								<PeopleMap data={data} />
+								<PeopleMap data={data} personPaths={personPaths} />
 							</Grid>
 							<Grid item xs={2}>
 								<div>info</div>
@@ -101,4 +79,4 @@ const People = props => {
 	)
 }
 
-export default withStyles(styles)(People)
+export default People

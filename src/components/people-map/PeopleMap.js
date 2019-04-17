@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react"
 import mapboxgl from "mapbox-gl"
+import { bezierSpline } from "@turf/turf"
 
 import "./PeopleMap.scss"
 
@@ -7,7 +8,9 @@ mapboxgl.accessToken =
 	"pk.eyJ1IjoiamJlbGxpenppIiwiYSI6ImNqb3Z6eHZreTFzZ3IzcHBia214M250cncifQ.562aUOGz7HteIUdtCdzDtA"
 
 const Map = props => {
-	const { data } = props
+	const { data, personPaths } = props
+
+	console.log(personPaths)
 
 	/**
 	 * Initialize
@@ -37,7 +40,7 @@ const Map = props => {
 	 */
 	useEffect(() => {
 		if (mapLoaded) {
-			/** Source */
+			/** Point Source */
 			map.addSource("point", {
 				type: "geojson",
 				data: {
@@ -46,6 +49,7 @@ const Map = props => {
 				},
 			})
 
+			/** Point Layer */
 			map.addLayer({
 				id: "point",
 				source: "point",
@@ -55,12 +59,46 @@ const Map = props => {
 					"circle-color": "#D6F0FF",
 				},
 			})
+
+			/** Path Source */
+			map.addSource("line", {
+				type: "geojson",
+				lineMetrics: true,
+				data: {
+					type: "FeatureCollection",
+					features: [],
+				},
+			})
+
+			/** Path Layer */
+			map.addLayer({
+				id: "line",
+				type: "line",
+				source: "line",
+				paint: {
+					"line-width": ["get", "lineWidth"],
+					"line-gradient": [
+						"interpolate",
+						["linear"],
+						["line-progress"],
+						0,
+						"#e0f7fa",
+						0.5,
+						"#e0f7fa",
+						1,
+						"#0097a7",
+					],
+				},
+				layout: {
+					"line-join": "round",
+					"line-cap": "round",
+				},
+			})
 		}
 	}, [mapLoaded])
 
 	/** Points */
 	useEffect(() => {
-		console.log(data)
 		if (data !== null && mapLoaded) {
 			const features = data.map(row => ({
 				type: "Feature",
@@ -82,6 +120,40 @@ const Map = props => {
 			map.getSource("point").setData(collection)
 		}
 	}, [mapLoaded, data])
+
+	/** Paths */
+	useEffect(() => {
+		if (mapLoaded && personPaths !== null) {
+			const lines = personPaths.map(row =>
+				bezierSpline({
+					type: "Feature",
+					properties: {
+						lineWidth: 2,
+					},
+					geometry: {
+						type: "LineString",
+						coordinates: [
+							[row["originLon"], row["originLat"]],
+							[
+								row["originLon"] +
+									(row["destinationLon"] - row["originLon"]) * (2 / 3),
+								row["destinationLat"] +
+									(row["originLat"] - row["destinationLat"]) * (2 / 3),
+							],
+							[row["destinationLon"], row["destinationLat"]],
+						],
+					},
+				})
+			)
+
+			const collection = {
+				type: "FeatureCollection",
+				features: lines,
+			}
+
+			map.getSource("line").setData(collection)
+		}
+	}, [mapLoaded, personPaths])
 
 	return <div id="map" ref={mapEl} />
 }

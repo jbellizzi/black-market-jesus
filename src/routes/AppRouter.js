@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Route, Link, withRouter } from "react-router-dom"
 // import Letters from "./Letters"
-import People from "./People"
+import People from "./People/People"
 import { AppBar, Tabs, Tab } from "@material-ui/core"
 
 function Letters() {

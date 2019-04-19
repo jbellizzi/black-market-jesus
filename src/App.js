@@ -1,8 +1,7 @@
 import React, { useState } from "react"
 import { BrowserRouter as Router, Route, withRouter } from "react-router-dom"
-import AppRouter from "./routing/AppRouter"
+import AppRouter from "./routes/AppRouter"
 // import Letters from "./routing/Letters"
-import People from "./routing/People"
 import "./App.scss"
 
 const App = () => {

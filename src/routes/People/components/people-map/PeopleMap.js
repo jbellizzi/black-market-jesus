@@ -8,9 +8,7 @@ mapboxgl.accessToken =
 	"pk.eyJ1IjoiamJlbGxpenppIiwiYSI6ImNqb3Z6eHZreTFzZ3IzcHBia214M250cncifQ.562aUOGz7HteIUdtCdzDtA"
 
 const Map = props => {
-	const { data, personPaths } = props
-
-	console.log(personPaths)
+	const { data } = props
 
 	/**
 	 * Initialize
@@ -94,66 +92,76 @@ const Map = props => {
 					"line-cap": "round",
 				},
 			})
+
+			map.on("mouseenter", "point", e => {
+				console.log(e)
+			})
 		}
 	}, [mapLoaded])
 
-	/** Points */
+	/** Set Data */
 	useEffect(() => {
 		if (data !== null && mapLoaded) {
-			const features = data.map(row => ({
-				type: "Feature",
-				geometry: {
-					type: "Point",
-					coordinates: [row.lon, row.lat],
-				},
-				properties: {
-					name: row.person,
-					city: row.city,
-				},
-			}))
+			/** Points */
+			const features = data
+				.map(person =>
+					person.cities.map(row => ({
+						type: "Feature",
+						geometry: {
+							type: "Point",
+							coordinates: [row.lon, row.lat],
+						},
+						properties: {
+							name: row.person,
+							city: row.city,
+						},
+					}))
+				)
+				.flat()
 
-			const collection = {
+			const pointCollection = {
 				type: "FeatureCollection",
 				features,
 			}
 
-			map.getSource("point").setData(collection)
-		}
-	}, [mapLoaded, data])
+			map.getSource("point").setData(pointCollection)
 
-	/** Paths */
-	useEffect(() => {
-		if (mapLoaded && personPaths !== null) {
-			const lines = personPaths.map(row =>
-				bezierSpline({
-					type: "Feature",
-					properties: {
-						lineWidth: 2,
-					},
-					geometry: {
-						type: "LineString",
-						coordinates: [
-							[row["originLon"], row["originLat"]],
-							[
-								row["originLon"] +
-									(row["destinationLon"] - row["originLon"]) * (2 / 3),
-								row["destinationLat"] +
-									(row["originLat"] - row["destinationLat"]) * (2 / 3),
-							],
-							[row["destinationLon"], row["destinationLat"]],
-						],
-					},
-				})
-			)
+			/** Paths */
+			const lines = data
+				.filter(person => person.paths.length)
+				.map(person =>
+					person.paths.map(row =>
+						bezierSpline({
+							type: "Feature",
+							properties: {
+								lineWidth: 2,
+							},
+							geometry: {
+								type: "LineString",
+								coordinates: [
+									[row["originLon"], row["originLat"]],
+									[
+										row["originLon"] +
+											(row["destinationLon"] - row["originLon"]) * (2 / 3),
+										row["destinationLat"] +
+											(row["originLat"] - row["destinationLat"]) * (2 / 3),
+									],
+									[row["destinationLon"], row["destinationLat"]],
+								],
+							},
+						})
+					)
+				)
+				.flat()
 
-			const collection = {
+			const lineCollection = {
 				type: "FeatureCollection",
 				features: lines,
 			}
 
-			map.getSource("line").setData(collection)
+			// map.getSource("line").setData(lineCollection)
 		}
-	}, [mapLoaded, personPaths])
+	}, [mapLoaded, data])
 
 	return <div id="map" ref={mapEl} />
 }

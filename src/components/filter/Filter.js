@@ -11,7 +11,7 @@ import {
 
 const styles = theme => ({
 	formControl: {
-		margin: 12,
+		margin: theme.spacing.unit,
 	},
 	select: {
 		color: "#fff",

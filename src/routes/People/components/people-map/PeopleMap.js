@@ -8,7 +8,7 @@ mapboxgl.accessToken =
 	"pk.eyJ1IjoiamJlbGxpenppIiwiYSI6ImNqb3Z6eHZreTFzZ3IzcHBia214M250cncifQ.562aUOGz7HteIUdtCdzDtA"
 
 const Map = props => {
-	const { data } = props
+	const { data, setNotes } = props
 
 	/**
 	 * Initialize
@@ -94,7 +94,7 @@ const Map = props => {
 			})
 
 			map.on("mouseenter", "point", e => {
-				console.log(e)
+				setNotes(e.features.map(feature => feature.properties))
 			})
 		}
 	}, [mapLoaded])
@@ -159,7 +159,7 @@ const Map = props => {
 				features: lines,
 			}
 
-			// map.getSource("line").setData(lineCollection)
+			map.getSource("line").setData(lineCollection)
 		}
 	}, [mapLoaded, data])
 

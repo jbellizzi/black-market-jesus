@@ -1,5 +1,11 @@
-import React from "react"
-import { Grid } from "@material-ui/core"
+import React, { useState } from "react"
+import {
+	withStyles,
+	Grid,
+	List,
+	ListItem,
+	ListItemText,
+} from "@material-ui/core"
 import { useData } from "../../hooks"
 import PeopleMap from "./components/people-map/PeopleMap"
 import Filter from "../../components/Filter/Filter"
@@ -14,6 +20,16 @@ const peopleHeaderMap = {
 	NOTES: "notes",
 }
 
+const styles = theme => ({
+	ListItemText: {
+		color: "#fff",
+	},
+	List: {
+		height: 800,
+		overflow: "auto",
+	},
+})
+
 const People = props => {
 	const {
 		data: sourceData,
@@ -26,6 +42,12 @@ const People = props => {
 	})
 
 	const data = useTransformedData(sourceData)
+
+	const { classes } = props
+
+	const [notes, setNotes] = useState([])
+
+	console.log(notes)
 
 	return (
 		<div>
@@ -41,14 +63,27 @@ const People = props => {
 					) : null}
 				</Grid>
 				<Grid item xs={10}>
-					<PeopleMap data={data} />
+					<PeopleMap data={data} setNotes={setNotes} />
 				</Grid>
 				<Grid item xs={2}>
-					<div>info</div>
+					<List component="nav" className={classes.List}>
+						{notes.map((note, i) => (
+							<ListItem key={i}>
+								<ListItemText
+									classes={{
+										primary: classes.ListItemText,
+										secondary: classes.ListItemText,
+									}}
+									primary={note.name}
+									secondary={note.city}
+								/>
+							</ListItem>
+						))}
+					</List>
 				</Grid>
 			</Grid>
 		</div>
 	)
 }
 
-export default People
+export default withStyles(styles)(People)

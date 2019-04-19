@@ -15,7 +15,12 @@ const peopleHeaderMap = {
 }
 
 const People = props => {
-	const { data: sourceData, fields, selectFieldValue } = useData({
+	const {
+		data: sourceData,
+		fields,
+		selectFieldValue,
+		clearFieldValues,
+	} = useData({
 		source: "./data/people.csv",
 		headerMap: peopleHeaderMap,
 	})
@@ -31,6 +36,7 @@ const People = props => {
 							fields={fields}
 							fieldName="person"
 							select={selectFieldValue}
+							clear={clearFieldValues}
 						/>
 					) : null}
 				</Grid>

@@ -105,15 +105,15 @@ const Map = props => {
 			/** Points */
 			const features = data
 				.map(person =>
-					person.cities.map(row => ({
+					person.cities.map(city => ({
 						type: "Feature",
 						geometry: {
 							type: "Point",
-							coordinates: [row.lon, row.lat],
+							coordinates: [city.lon, city.lat],
 						},
 						properties: {
-							name: row.person,
-							city: row.city,
+							name: person.name,
+							city: city.name,
 						},
 					}))
 				)

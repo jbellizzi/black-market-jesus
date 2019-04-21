@@ -10,6 +10,9 @@ import {
 } from "@material-ui/core"
 
 const styles = theme => ({
+	root: {
+		display: "inline-block",
+	},
 	formControl: {
 		margin: theme.spacing.unit,
 	},
@@ -48,7 +51,7 @@ const Filter = props => {
 	const [selectOpen, setSelectOpen] = useState(false)
 
 	return (
-		<div>
+		<div className={classes.root}>
 			<FormControl className={classes.formControl}>
 				<Select
 					className={classes.select}

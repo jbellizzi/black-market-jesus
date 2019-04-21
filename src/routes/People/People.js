@@ -9,6 +9,7 @@ import {
 import { useData } from "../../hooks"
 import PeopleMap from "./components/people-map/PeopleMap"
 import Filter from "../../components/Filter/Filter"
+import DateFilter from "../../components/DateFilter/DateFilter"
 import { useTransformedData } from "./hooks"
 
 const peopleHeaderMap = {
@@ -47,8 +48,6 @@ const People = props => {
 
 	const [notes, setNotes] = useState([])
 
-	console.log(notes)
-
 	return (
 		<div>
 			<Grid container spacing={24}>
@@ -61,12 +60,22 @@ const People = props => {
 							clear={clearFieldValues}
 						/>
 					) : null}
+					<DateFilter label="Start Date" defaultValue="1660-01-01" />
+					<DateFilter label="End Date" defaultValue="1699-12-31" />
 				</Grid>
 				<Grid item xs={10}>
 					<PeopleMap data={data} setNotes={setNotes} />
 				</Grid>
 				<Grid item xs={2}>
 					<List component="nav" className={classes.List}>
+						{notes.length ? (
+							<ListItem>
+								<ListItemText
+									classes={{ primary: classes.ListItemText }}
+									primary={notes[0].city}
+								/>
+							</ListItem>
+						) : null}
 						{notes.map((note, i) => (
 							<ListItem key={i}>
 								<ListItemText
@@ -75,7 +84,6 @@ const People = props => {
 										secondary: classes.ListItemText,
 									}}
 									primary={note.name}
-									secondary={note.city}
 								/>
 							</ListItem>
 						))}

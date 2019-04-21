@@ -10,6 +10,7 @@
 
 # production
 /build
+/bmj
 
 # misc
 .DS_Store

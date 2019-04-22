@@ -1,0 +1,8 @@
+{
+	"PERSON": "person",
+	"Date": "date",
+	"LOCATION 1": "city",
+	"Latitude": "lat",
+	"Longitude": "lon",
+	"NOTES": "notes"
+}

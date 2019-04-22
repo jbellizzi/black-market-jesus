@@ -6,21 +6,15 @@ import {
 	ListItem,
 	ListItemText,
 } from "@material-ui/core"
+
 import { useData } from "../../hooks"
+import { Filter, DateFilter } from "../../components"
+
 import PeopleMap from "./components/people-map/PeopleMap"
-import Filter from "../../components/Filter/Filter"
-import DateFilter from "../../components/DateFilter/DateFilter"
-import { useTransformedData } from "./hooks"
+import { useTransformedData, useDateFilteredData, useNestedData } from "./hooks"
+import peopleHeaderMap from "./config/headerMap.json"
 
-const peopleHeaderMap = {
-	PERSON: "person",
-	Date: "date",
-	"LOCATION 1": "city",
-	Latitude: "lat",
-	Longitude: "lon",
-	NOTES: "notes",
-}
-
+/** STYLE */
 const styles = theme => ({
 	ListItemText: {
 		color: "#fff",
@@ -31,7 +25,14 @@ const styles = theme => ({
 	},
 })
 
+/** COMPONENT */
 const People = props => {
+	const { classes } = props
+
+	/** Notes State */
+	const [notes, setNotes] = useState([])
+
+	/** Get source data */
 	const {
 		data: sourceData,
 		fields,
@@ -42,16 +43,25 @@ const People = props => {
 		headerMap: peopleHeaderMap,
 	})
 
-	const data = useTransformedData(sourceData)
+	/** Transform Data */
+	const transformedData = useTransformedData(sourceData)
 
-	const { classes } = props
+	/** Date Filter Data */
+	const {
+		data: dateFilteredData,
+		setMinDate,
+		setMaxDate,
+	} = useDateFilteredData(transformedData)
 
-	const [notes, setNotes] = useState([])
+	/** Nest Data */
+	const data = useNestedData(dateFilteredData)
 
 	return (
 		<div>
 			<Grid container spacing={24}>
+				{/* Filters */}
 				<Grid item xs={12}>
+					{/* Person */}
 					{fields !== null ? (
 						<Filter
 							fields={fields}
@@ -60,12 +70,28 @@ const People = props => {
 							clear={clearFieldValues}
 						/>
 					) : null}
-					<DateFilter label="Start Date" defaultValue="1660-01-01" />
-					<DateFilter label="End Date" defaultValue="1699-12-31" />
+
+					{/* Start Date */}
+					<DateFilter
+						label="Start Date"
+						defaultValue="1660-01-01"
+						setDate={setMinDate}
+					/>
+
+					{/* End Date */}
+					<DateFilter
+						label="End Date"
+						defaultValue="1699-12-31"
+						setDate={setMaxDate}
+					/>
 				</Grid>
+
+				{/* Map */}
 				<Grid item xs={10}>
 					<PeopleMap data={data} setNotes={setNotes} />
 				</Grid>
+
+				{/* Notes */}
 				<Grid item xs={2}>
 					<List component="nav" className={classes.List}>
 						{notes.length ? (

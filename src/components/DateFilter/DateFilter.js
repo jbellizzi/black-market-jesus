@@ -17,7 +17,7 @@ const styles = theme => ({
 })
 
 const DateFilter = props => {
-	const { classes, label, defaultValue } = props
+	const { classes, label, defaultValue, setDate } = props
 
 	return (
 		<div className={classes.root}>
@@ -33,7 +33,9 @@ const DateFilter = props => {
 						className: classes.TextFieldInput,
 					}}
 					InputProps={{ className: classes.TextFieldInput }}
-					onChange={event => console.log(event.target.value)}
+					onChange={event => {
+						setDate(new Date(`${event.target.value} GMT-0500`))
+					}}
 				/>
 			</form>
 		</div>

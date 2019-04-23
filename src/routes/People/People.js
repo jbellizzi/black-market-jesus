@@ -87,12 +87,12 @@ const People = props => {
 				</Grid>
 
 				{/* Map */}
-				<Grid item xs={10}>
+				<Grid item xs={9}>
 					<PeopleMap data={data} setNotes={setNotes} />
 				</Grid>
 
 				{/* Notes */}
-				<Grid item xs={2}>
+				<Grid item xs={3}>
 					<List component="nav" className={classes.List}>
 						{notes.map((note, i) => (
 							<ListItem key={i}>
@@ -101,9 +101,10 @@ const People = props => {
 										primary: classes.ListItemText,
 										secondary: classes.ListItemText,
 									}}
-									primary={note.name}
+									style={{ whiteSpace: "pre-line" }}
+									primary={`${note.name} (${note.date})`}
 									secondary={`${note.city} ${
-										note.notes.length ? `*notes: ${note.notes}` : ""
+										note.notes.length ? `\nnotes: ${note.notes}` : ""
 									}`}
 								/>
 							</ListItem>

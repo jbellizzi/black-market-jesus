@@ -113,6 +113,7 @@ const Map = props => {
 						},
 						properties: {
 							name: person.name,
+							date: city.dateString,
 							city: city.name,
 							notes: city.notes,
 						},

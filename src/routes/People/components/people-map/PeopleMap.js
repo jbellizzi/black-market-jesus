@@ -114,6 +114,7 @@ const Map = props => {
 						properties: {
 							name: person.name,
 							city: city.name,
+							notes: city.notes,
 						},
 					}))
 				)

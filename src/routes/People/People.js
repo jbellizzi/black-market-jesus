@@ -94,14 +94,6 @@ const People = props => {
 				{/* Notes */}
 				<Grid item xs={2}>
 					<List component="nav" className={classes.List}>
-						{notes.length ? (
-							<ListItem>
-								<ListItemText
-									classes={{ primary: classes.ListItemText }}
-									primary={notes[0].city}
-								/>
-							</ListItem>
-						) : null}
 						{notes.map((note, i) => (
 							<ListItem key={i}>
 								<ListItemText
@@ -110,6 +102,9 @@ const People = props => {
 										secondary: classes.ListItemText,
 									}}
 									primary={note.name}
+									secondary={`${note.city} ${
+										note.notes.length ? `*notes: ${note.notes}` : ""
+									}`}
 								/>
 							</ListItem>
 						))}

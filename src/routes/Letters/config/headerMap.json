@@ -1,0 +1,14 @@
+{
+	"Date": "dateString",
+	"Destination City": "destinationCity",
+	"Destination Latitude": "destinationLatitude",
+	"Destination Longitude": "destinationLongitude",
+	"End Date": "endDateString",
+	"Notes": "notes",
+	"Origin City": "originCity",
+	"Origin Latitude": "originLatitude",
+	"Origin Longitude": "originLongitude",
+	"Recipient": "recipient",
+	"Sender": "sender",
+	"Start Date": "startDateString"
+}

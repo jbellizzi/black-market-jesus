@@ -30,13 +30,15 @@ const styles = theme => ({
 		outline: "none",
 	},
 	button: {
-		margin: theme.spacing.unit,
+		marginTop: theme.spacing.unit,
+		marginRight: theme.spacing.unit,
+		marginBottom: theme.spacing.unit,
 		color: "#fff",
 	},
 })
 
 const Filter = props => {
-	const { classes, fields, fieldName, select, clear } = props
+	const { classes, fields, fieldName, placeholder, select, clear } = props
 
 	const field = fields[fieldName]
 
@@ -68,7 +70,7 @@ const Filter = props => {
 					input={<Input id="select-multiple-placeholder" />}
 					renderValue={selected => {
 						if (selected.length === 0) {
-							return <em>Person</em>
+							return <em>{placeholder}</em>
 						}
 
 						return selected.join(", ")

@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react"
-import { nest } from "d3-collection"
 
 export default data => {
 	/** State */
@@ -16,7 +15,7 @@ export default data => {
 					lat: +row.lat,
 					lon: +row.lon,
 					dateString: row.date,
-					date: new Date(row.date),
+					date: new Date(`${row.date} GMT-0457`),
 				}))
 			)
 		}

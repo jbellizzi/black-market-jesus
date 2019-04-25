@@ -10,6 +10,9 @@ const theme = createMuiTheme({
 	palette: {
 		primary: lightBlue,
 	},
+	typography: {
+		useNextVariants: true,
+	},
 })
 
 ReactDOM.render(

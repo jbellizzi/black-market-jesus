@@ -23,9 +23,6 @@ const styles = theme => ({
 		height: 800,
 		overflow: "auto",
 	},
-	noPadding: {
-		padding: 0,
-	},
 })
 
 /** COMPONENT */
@@ -69,6 +66,7 @@ const People = props => {
 						<Filter
 							fields={fields}
 							fieldName="person"
+							placeholder="Person"
 							select={selectFieldValue}
 							clear={clearFieldValues}
 						/>
@@ -90,7 +88,7 @@ const People = props => {
 				</Grid>
 
 				{/* Map */}
-				<Grid className={classes.noPadding} item xs={9}>
+				<Grid item xs={9}>
 					<PeopleMap data={data} setNotes={setNotes} />
 				</Grid>
 

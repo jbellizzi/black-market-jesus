@@ -23,6 +23,9 @@ const styles = theme => ({
 		height: 800,
 		overflow: "auto",
 	},
+	noPadding: {
+		padding: 0,
+	},
 })
 
 /** COMPONENT */
@@ -87,7 +90,7 @@ const People = props => {
 				</Grid>
 
 				{/* Map */}
-				<Grid item xs={9}>
+				<Grid className={classes.noPadding} item xs={9}>
 					<PeopleMap data={data} setNotes={setNotes} />
 				</Grid>
 

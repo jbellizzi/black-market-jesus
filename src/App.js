@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import { BrowserRouter as Router, Route, withRouter } from "react-router-dom"
 import AppRouter from "./routes/AppRouter"
-// import Letters from "./routing/Letters"
 import "./App.scss"
 
 const App = () => {

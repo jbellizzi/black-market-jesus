@@ -11,7 +11,11 @@ import {
 
 const styles = theme => ({
 	root: {
+		marginTop: theme.spacing.unit * 3,
+		marginLeft: theme.spacing.unit * 3,
+		marginRight: theme.spacing.unit * 3,
 		display: "inline-block",
+		verticalAlign: "top",
 	},
 	formControl: {
 		margin: theme.spacing.unit,

@@ -3,12 +3,12 @@ import { TextField, withStyles } from "@material-ui/core"
 
 const styles = theme => ({
 	root: {
+		marginTop: theme.spacing.unit * 3,
+		marginLeft: theme.spacing.unit * 3,
 		display: "inline-block",
-		marginLeft: theme.spacing.unit * 4,
+		verticalAlign: "top",
 	},
 	TextField: {
-		marginLeft: theme.spacing.unit,
-		marginRight: theme.spacing.unit,
 		width: 200,
 	},
 	TextFieldInput: {

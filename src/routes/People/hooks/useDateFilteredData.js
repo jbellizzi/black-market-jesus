@@ -29,7 +29,7 @@ export default data => {
 				})
 			)
 		}
-	}, [minDate, maxDate])
+	}, [minDate, maxDate, data])
 
 	return { data: filteredData, setMinDate, setMaxDate }
 }

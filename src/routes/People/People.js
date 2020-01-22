@@ -1,11 +1,5 @@
-import React, { useState } from "react"
-import {
-	withStyles,
-	Grid,
-	List,
-	ListItem,
-	ListItemText,
-} from "@material-ui/core"
+import React, { useState, useEffect } from "react"
+import { withStyles, Grid, List, ListItem, ListItemText } from "@material-ui/core"
 
 import { useData } from "../../hooks"
 import { Filter, DateFilter } from "../../components"
@@ -33,12 +27,7 @@ const People = props => {
 	const [notes, setNotes] = useState([])
 
 	/** Get source data */
-	const {
-		data: sourceData,
-		fields,
-		selectFieldValue,
-		clearFieldValues,
-	} = useData({
+	const { data: sourceData, fields, selectFieldValue, clearFieldValues } = useData({
 		source: "./data/people.csv",
 		headerMap: peopleHeaderMap,
 	})
@@ -47,11 +36,7 @@ const People = props => {
 	const transformedData = useTransformedData(sourceData)
 
 	/** Date Filter Data */
-	const {
-		data: dateFilteredData,
-		setMinDate,
-		setMaxDate,
-	} = useDateFilteredData(transformedData)
+	const { data: dateFilteredData, setMinDate, setMaxDate } = useDateFilteredData(transformedData)
 
 	/** Nest Data */
 	const data = useNestedData(dateFilteredData)
@@ -63,28 +48,29 @@ const People = props => {
 				<Grid item xs={12}>
 					{/* Person */}
 					{fields !== null ? (
-						<Filter
-							fields={fields}
-							fieldName="person"
-							placeholder="Person"
-							select={selectFieldValue}
-							clear={clearFieldValues}
-						/>
+						<>
+							<Filter
+								fields={fields}
+								fieldName="person"
+								placeholder="Person"
+								select={selectFieldValue}
+								clear={clearFieldValues}
+							/>
+							<Filter
+								fields={fields}
+								fieldName="city"
+								placeholder="City"
+								select={selectFieldValue}
+								clear={clearFieldValues}
+							/>
+						</>
 					) : null}
 
 					{/* Start Date */}
-					<DateFilter
-						label="Start Date"
-						defaultValue="1660-01-01"
-						setDate={setMinDate}
-					/>
+					<DateFilter label="Start Date" defaultValue="1660-01-01" setDate={setMinDate} />
 
 					{/* End Date */}
-					<DateFilter
-						label="End Date"
-						defaultValue="1699-12-31"
-						setDate={setMaxDate}
-					/>
+					<DateFilter label="End Date" defaultValue="1699-12-31" setDate={setMaxDate} />
 				</Grid>
 
 				{/* Map */}
@@ -104,9 +90,7 @@ const People = props => {
 									}}
 									style={{ whiteSpace: "pre-line" }}
 									primary={`${note.name} (${note.date})`}
-									secondary={`${note.city} ${
-										note.notes.length ? `\nnotes: ${note.notes}` : ""
-									}`}
+									secondary={`${note.city} ${note.notes.length ? `\nnotes: ${note.notes}` : ""}`}
 								/>
 							</ListItem>
 						))}

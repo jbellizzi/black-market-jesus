@@ -4,8 +4,7 @@ import { bezierSpline } from "@turf/turf"
 
 import "./PeopleMap.scss"
 
-mapboxgl.accessToken =
-	"pk.eyJ1IjoiamJlbGxpenppIiwiYSI6ImNqb3Z6eHZreTFzZ3IzcHBia214M250cncifQ.562aUOGz7HteIUdtCdzDtA"
+mapboxgl.accessToken = "pk.eyJ1IjoiamJlbGxpenppIiwiYSI6ImNqb3Z6eHZreTFzZ3IzcHBia214M250cncifQ.562aUOGz7HteIUdtCdzDtA"
 
 const Map = props => {
 	const { data, setNotes } = props
@@ -75,17 +74,7 @@ const Map = props => {
 				source: "line",
 				paint: {
 					"line-width": ["get", "lineWidth"],
-					"line-gradient": [
-						"interpolate",
-						["linear"],
-						["line-progress"],
-						0,
-						"#e0f7fa",
-						0.5,
-						"#e0f7fa",
-						1,
-						"#0097a7",
-					],
+					"line-gradient": ["interpolate", ["linear"], ["line-progress"], 0, "#e0f7fa", 0.5, "#e0f7fa", 1, "#0097a7"],
 				},
 				layout: {
 					"line-join": "round",
@@ -143,10 +132,8 @@ const Map = props => {
 								coordinates: [
 									[row["originLon"], row["originLat"]],
 									[
-										row["originLon"] +
-											(row["destinationLon"] - row["originLon"]) * (2 / 3),
-										row["destinationLat"] +
-											(row["originLat"] - row["destinationLat"]) * (2 / 3),
+										row["originLon"] + (row["destinationLon"] - row["originLon"]) * (2 / 3),
+										row["destinationLat"] + (row["originLat"] - row["destinationLat"]) * (2 / 3),
 									],
 									[row["destinationLon"], row["destinationLat"]],
 								],

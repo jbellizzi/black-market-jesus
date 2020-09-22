@@ -15,4 +15,37 @@
 			vertical-align: top;
 		}
 	}
+
+	.about {
+		margin: 0 auto;
+		color: white;
+		padding: 48px 18px;
+		line-height: 28px;
+
+		.title {
+			font-weight: bold;
+		}
+
+		a {
+			color: #46b5c1;
+		}
+	}
+
+	@media (min-width: 640px) {
+		.about {
+			width: 580px;
+		}
+	}
+
+	@media (min-width: 768px) {
+		.about {
+			width: 700px;
+		}
+	}
+
+	@media (min-width: 1280px) {
+		.about {
+			width: 1000px;
+		}
+	}
 }

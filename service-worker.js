@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/black-market-jesus/precache-manifest.7aee84ffa03a546da755f7ae2b31055e.js"
+  "/black-market-jesus/precache-manifest.0cdca85051e76b99a249ec882259537f.js"
 );
 
 workbox.clientsClaim();

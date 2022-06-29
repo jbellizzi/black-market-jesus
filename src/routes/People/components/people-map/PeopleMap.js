@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react"
 import mapboxgl from "mapbox-gl"
 import { bezierSpline } from "@turf/turf"
 
-import "./PeopleMap.scss"
+import "./PeopleMap.css"
 
 mapboxgl.accessToken = "pk.eyJ1IjoiamJlbGxpenppIiwiYSI6ImNqb3Z6eHZreTFzZ3IzcHBia214M250cncifQ.562aUOGz7HteIUdtCdzDtA"
 

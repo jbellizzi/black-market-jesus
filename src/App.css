@@ -1,0 +1,49 @@
+.App .section {
+	margin-top: 20px;
+}
+
+.App .section .date-slider {
+	position: relative;
+	width: calc(100% - 370px);
+	display: inline-block;
+	vertical-align: top;
+}
+
+.App .section .filters {
+	width: 200px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.App .about {
+	margin: 0 auto;
+	color: white;
+	padding: 48px 18px;
+	line-height: 28px;
+}
+
+.App .about .title {
+	font-weight: bold;
+}
+
+.App .about a {
+	color: #46b5c1;
+}
+
+@media (min-width: 640px) {
+	.App .about {
+		width: 580px;
+	}
+}
+
+@media (min-width: 768px) {
+	.App .about {
+		width: 700px;
+	}
+}
+
+@media (min-width: 1280px) {
+	.App .about {
+		width: 1000px;
+	}
+}

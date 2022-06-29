@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { BrowserRouter as Router, Route, withRouter } from "react-router-dom"
 import AppRouter from "./routes/AppRouter"
-import "./App.scss"
+import "./App.css"
 
 const App = () => {
 	const [selectedMinDate, setSelectedMinDate] = useState(undefined)

@@ -1,13 +1,13 @@
 {
-  "main.css": "/static/css/main.fb422e56.chunk.css",
-  "main.js": "/static/js/main.e6cf8437.chunk.js",
-  "main.js.map": "/static/js/main.e6cf8437.chunk.js.map",
-  "runtime~main.js": "/static/js/runtime~main.fdfcfda2.js",
-  "runtime~main.js.map": "/static/js/runtime~main.fdfcfda2.js.map",
-  "static/js/2.bc1ef750.chunk.js": "/static/js/2.bc1ef750.chunk.js",
-  "static/js/2.bc1ef750.chunk.js.map": "/static/js/2.bc1ef750.chunk.js.map",
-  "index.html": "/index.html",
-  "precache-manifest.dcfbc7eda5b173424cd7d3258470bf1b.js": "/precache-manifest.dcfbc7eda5b173424cd7d3258470bf1b.js",
-  "service-worker.js": "/service-worker.js",
-  "static/css/main.fb422e56.chunk.css.map": "/static/css/main.fb422e56.chunk.css.map"
+  "main.css": "/black-market-jesus/static/css/main.fb422e56.chunk.css",
+  "main.js": "/black-market-jesus/static/js/main.88a97e10.chunk.js",
+  "main.js.map": "/black-market-jesus/static/js/main.88a97e10.chunk.js.map",
+  "runtime~main.js": "/black-market-jesus/static/js/runtime~main.821a9a6c.js",
+  "runtime~main.js.map": "/black-market-jesus/static/js/runtime~main.821a9a6c.js.map",
+  "static/js/2.bc1ef750.chunk.js": "/black-market-jesus/static/js/2.bc1ef750.chunk.js",
+  "static/js/2.bc1ef750.chunk.js.map": "/black-market-jesus/static/js/2.bc1ef750.chunk.js.map",
+  "index.html": "/black-market-jesus/index.html",
+  "precache-manifest.04c23ed273ebc891b25ebccec124ca7e.js": "/black-market-jesus/precache-manifest.04c23ed273ebc891b25ebccec124ca7e.js",
+  "service-worker.js": "/black-market-jesus/service-worker.js",
+  "static/css/main.fb422e56.chunk.css.map": "/black-market-jesus/static/css/main.fb422e56.chunk.css.map"
 }
